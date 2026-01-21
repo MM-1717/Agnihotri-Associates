@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-poppins);
+  cursor: default;
+}
+
+h1, h2, h3, h4, h5, h6,
+.hero-title {
+  font-family: var(--font-montserrat);
+  font-weight: 800;
+}
+
+* {
+  cursor: default !important;
+}
+
+/* Premium Fade + Slide + Blur Animation */
+
+.anim-line {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(4px);
+  animation: riseUp 0.9s ease-out forwards;
+}
+
+.anim-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.anim-delay-2 {
+  animation-delay: 0.4s;
+}
+
+.anim-delay-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes riseUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+
+/* CTA BUTTON */
+.cta-btn {
+  position: relative;
+  display: inline-block;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(to right, #16A34A, #16A34A);
+  color: rgb(0, 0, 0);
+  overflow: hidden;
+  width: 160px;
+  height: 50px;
+}
+
+.cta-btn span {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 12px;
+  transition: color 0.4s;
+}
+
+.cta-btn svg {
+  width: 1.4em;
+  height: 1.4em;
+  margin-right: 0.5em;
+}
+
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 120%;
+  left: -10%;
+  background: hsl(0, 100%, 100%);
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  z-index: 0;
+}
+
+.cta-btn:hover::before {
+  transform: translate3d(100%, 0, 0);
+}
+
+.cta-btn:active {
+  transform: scale(0.95);
+}
+
+
+/* ======= NAVBAR LINK HOVER EFFECT (Pulse Background) ======= */
+.nav-link {
+  padding: 8px 16px;
+  border-radius: 10px;
+  display: inline-block;
+  font-weight: 500;
+  color: #0A1A3B;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(42, 218, 107, 0.137);
+  color: #16A34A;
+}
+
+.active-link {
+  background-color: rgba(22, 163, 74, 0.18);
+  color: #16A34A;
+}
