@@ -98,9 +98,9 @@ export default function HomeServices() {
           </div>
 
           {/* Title */}
-          <h2 className="mt-6 text-4xl md:text-6xl font-extrabold text-white">
+          <p className="text-4xl md:text-6xl font-extrabold mt-4 anim-line anim-delay-3 text-white">
             What We Offer
-          </h2>
+          </p>
 
           {/* Subtitle */}
           <p className="mt-5 max-w-3xl mx-auto text-gray-100 text-lg leading-relaxed">

@@ -155,9 +155,9 @@ export default function ClientelePage() {
               Industries We Serve
             </div>
 
-            <h2 className="mt-6 text-4xl md:text-5xl font-extrabold text-[#0A1A3B]">
+            <p className="text-4xl md:text-6xl font-extrabold mt-4 anim-line anim-delay-3 text-[#0A1A3B]">
               Serving a Wide Range of Industries
-            </h2>
+            </p>
 
             <p className="mt-6 max-w-4xl mx-auto text-gray-600 text-lg leading-relaxed">
               Agnihotri & Associates handles a variety of clients from multiple

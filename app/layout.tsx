@@ -19,7 +19,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Agnihotri & Associates",
+  title: "Agnihotri & Associates - Chartered Accountants",
   description: "Chartered Accountants Firm Website",
 };
 

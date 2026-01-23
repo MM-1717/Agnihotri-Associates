@@ -194,9 +194,9 @@ export default function ContactPage() {
               Get in Touch
             </div>
 
-            <h2 className="mt-6 text-4xl md:text-5xl font-extrabold text-[#0A1A3B]">
+            <p className="text-4xl md:text-6xl font-extrabold mt-4 anim-line anim-delay-3 text-[#0A1A3B]">
               Send Your Query
-            </h2>
+            </p>
 
             <p className="mt-5 text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
               Fill out the form below and we will contact you as soon as
