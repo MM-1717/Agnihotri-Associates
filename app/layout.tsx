@@ -5,6 +5,7 @@ import { Poppins, Montserrat } from "next/font/google";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import WhatsAppFloat from "./Components/WhatsAppFloat";
+import ScrollToTop from "./Components/ScrollToTop";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
         {children}
         <WhatsAppFloat />
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );
