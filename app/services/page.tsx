@@ -122,7 +122,7 @@ const services = [
   },
 ];
 
-/* ✅ Reveal Animation Component (inside same file) */
+/* ✅ Reveal Animation Component */
 function Reveal({
   children,
   from = "bottom",
@@ -145,7 +145,7 @@ function Reveal({
       ([entry]) => {
         if (entry.isIntersecting) {
           setShow(true);
-          observer.unobserve(el); // ✅ only once
+          observer.unobserve(el);
         }
       },
       { threshold: 0.2 }
@@ -177,7 +177,7 @@ function Reveal({
 
 export default function ServicesPage() {
   return (
-    <section className="bg-white">
+    <section className="bg-white w-full overflow-x-hidden">
       {/* ================= HERO SECTION ================= */}
       <section
         className="
@@ -197,12 +197,11 @@ export default function ServicesPage() {
             className="object-cover object-center"
             priority
           />
-          {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/55" />
         </div>
 
         {/* Text Content */}
-        <div className="max-w-7xl mx-auto px-6 pt-12 md:pt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 md:pt-20">
           <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-500 text-xs tracking-widest uppercase text-white bg-black/5 backdrop-blur">
             <span className="w-2 h-2 rounded-full bg-[#16A34A] inline-block" />
             Services
@@ -222,7 +221,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ================= SECTION INTRO ================= */}
-      <div className="bg-white text-center py-16 px-6">
+      <div className="bg-white text-center py-16 px-4 sm:px-6 overflow-x-hidden">
         <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-300 text-xs tracking-widest uppercase text-gray-800 bg-black/10 backdrop-blur">
           <span className="w-2 h-2 rounded-full bg-[#16A34A] inline-block" />
           What we Offer
@@ -240,43 +239,50 @@ export default function ServicesPage() {
       </div>
 
       {/* ================= SERVICES LIST ================= */}
-      <div className="max-w-7xl mx-auto px-6 py-20 space-y-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 space-y-14 sm:space-y-20 overflow-x-hidden">
         {services.map((service, index) => {
           const isReversed = index % 2 !== 0;
 
           return (
-            <div
-              key={index}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-            >
-              {/* Image */}
-              <div className={isReversed ? "lg:order-2" : ""}>
-                <Reveal from={isReversed ? "right" : "left"} delay={100}>
-                  <div className="relative w-full h-80 rounded-lg shadow-lg overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover"
-                    />
+            <div key={index} className="space-y-12 sm:space-y-16">
+              {/* ✅ One Service Block */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 items-center">
+                {/* Image */}
+                <div className={isReversed ? "lg:order-2" : ""}>
+                  <Reveal from={isReversed ? "right" : "left"} delay={100}>
+                    <div className="relative w-full h-64 sm:h-80 rounded-xl shadow-lg overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </Reveal>
+                </div>
+
+                {/* Content */}
+                <Reveal from={isReversed ? "left" : "right"} delay={200}>
+                  <div>
+                    <h2 className="text-2xl sm:text-3xl font-semibold text-[#0A1A3B] mb-5 sm:mb-6">
+                      {service.title}
+                    </h2>
+
+                    <ul className="list-disc pl-5 space-y-2 text-gray-900 text-base sm:text-lg break-words">
+                      {service.points.map((point, i) => (
+                        <li key={i}>{point}</li>
+                      ))}
+                    </ul>
                   </div>
                 </Reveal>
               </div>
 
-              {/* Content */}
-              <Reveal from={isReversed ? "left" : "right"} delay={200}>
-                <div>
-                  <h2 className="text-3xl font-semibold text-[#0A1A3B] mb-6">
-                    {service.title}
-                  </h2>
-
-                  <ul className="list-disc pl-5 space-y-2 text-gray-900 text-lg">
-                    {service.points.map((point, i) => (
-                      <li key={i}>{point}</li>
-                    ))}
-                  </ul>
+              {/* ✅ Divider line (skip for last service) */}
+              {index !== services.length - 1 && (
+                <div className="relative w-full pt-8">
+                  <div className="h-px w-full bg-gray-400" />
                 </div>
-              </Reveal>
+              )}
             </div>
           );
         })}
