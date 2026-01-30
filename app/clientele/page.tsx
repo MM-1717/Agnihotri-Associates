@@ -152,7 +152,7 @@ export default function ClientelePage() {
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-300 text-xs tracking-widest uppercase text-gray-800 bg-black/5 backdrop-blur">
               <span className="w-2 h-2 rounded-full bg-[#16A34A] inline-block" />
-              Industries We Serve
+              Industries We show
             </div>
 
             <p className="text-4xl md:text-6xl font-extrabold mt-4 anim-line anim-delay-3 text-[#0A1A3B]">
