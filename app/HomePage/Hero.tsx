@@ -125,7 +125,7 @@ export default function HeroCarousel() {
             <Link href = "/contact">
             <button
               key={index + "-btn"}
-              className="cta-btn mt-6 md:mt-8 anim-line anim-delay-3"
+              className="cta-btn mt-6 md:mt-8 anim-line anim-delay-3 bg-green-600 "
             >
               <span>
                 {s.button}

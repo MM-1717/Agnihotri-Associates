@@ -33,8 +33,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, open]);
 
+  // Navbar Links
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "Krilekha", path: "/krilekha" }, 
     { name: "Team", path: "/team" },
     { name: "Services", path: "/services" },
     { name: "Clientele", path: "/clientele" },
@@ -49,7 +51,8 @@ export default function Navbar() {
     >
       <nav className="bg-white text-gray-700 border-b border-black/10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center">
-          {/* Logo (Left) */}
+          
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image
               src="/favicon.png"
@@ -60,7 +63,6 @@ export default function Navbar() {
               className="object-contain"
             />
 
-            {/* Responsive Logo Text */}
             <div className="leading-tight">
               <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#062645]">
                 Agnihotri
@@ -71,15 +73,19 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Links (Center) - ONLY on lg+ */}
+          {/* Desktop Nav */}
           <div className="hidden lg:flex flex-1 justify-center">
-            <ul className="flex items-center gap-6 font-semibold text-base">
+            <ul className="flex items-center gap-4 font-semibold text-base">
               {navLinks.map((item) => (
                 <li key={item.path}>
                   <Link
                     href={item.path}
                     className={`nav-link ${
                       pathname === item.path ? "active-link" : ""
+                    } ${
+                      item.name === "Krilekha"
+                        ? "text-green-600 font-bold"
+                        : ""
                     }`}
                   >
                     {item.name}
@@ -89,7 +95,7 @@ export default function Navbar() {
             </ul>
           </div>
 
-          {/* Right CTA Button (Desktop) - ONLY on lg+ */}
+          {/* CTA */}
           <div className="hidden lg:flex shrink-0">
             <Link
               href="/contact"
@@ -99,7 +105,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Hamburger (Mobile + Tablet) */}
+          {/* Mobile Toggle */}
           <button
             className="lg:hidden ml-auto"
             onClick={() => setOpen(!open)}
@@ -113,7 +119,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile / Tablet Menu */}
+        {/* Mobile Menu */}
         {open && (
           <div className="lg:hidden bg-white border-t px-6 py-6">
             <ul className="flex flex-col gap-4 text-lg font-semibold text-gray-900">
@@ -124,6 +130,8 @@ export default function Navbar() {
                     className={`block w-full px-5 py-3 rounded-xl transition ${
                       pathname === item.path
                         ? "bg-green-100 text-green-700"
+                        : item.name === "Krilekha"
+                        ? "text-green-600 font-bold"
                         : "hover:bg-gray-100"
                     }`}
                     onClick={() => setOpen(false)}
@@ -134,7 +142,7 @@ export default function Navbar() {
               ))}
             </ul>
 
-            {/* CTA Button */}
+            {/* CTA */}
             <Link
               href="/contact"
               className="mt-6 block w-full text-center px-6 py-3 rounded-xl bg-[#0B5D4C] text-white font-semibold hover:opacity-90 transition"
