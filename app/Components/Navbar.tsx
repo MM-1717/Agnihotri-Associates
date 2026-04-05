@@ -13,7 +13,6 @@ export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Hide navbar on scroll down, show on scroll up
   useEffect(() => {
     const handleScroll = () => {
       if (open) return;
@@ -33,10 +32,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, open]);
 
-  // Navbar Links
+  // ✅ Clean Nav Links
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Krilekha", path: "/krilekha" }, 
     { name: "Team", path: "/team" },
     { name: "Services", path: "/services" },
     { name: "Clientele", path: "/clientele" },
@@ -51,7 +49,7 @@ export default function Navbar() {
     >
       <nav className="bg-white text-gray-700 border-b border-black/10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center">
-          
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image
@@ -82,10 +80,6 @@ export default function Navbar() {
                     href={item.path}
                     className={`nav-link ${
                       pathname === item.path ? "active-link" : ""
-                    } ${
-                      item.name === "Krilekha"
-                        ? "text-green-600 font-bold"
-                        : ""
                     }`}
                   >
                     {item.name}
@@ -130,8 +124,6 @@ export default function Navbar() {
                     className={`block w-full px-5 py-3 rounded-xl transition ${
                       pathname === item.path
                         ? "bg-green-100 text-green-700"
-                        : item.name === "Krilekha"
-                        ? "text-green-600 font-bold"
                         : "hover:bg-gray-100"
                     }`}
                     onClick={() => setOpen(false)}

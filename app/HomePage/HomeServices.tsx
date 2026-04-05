@@ -73,8 +73,6 @@ const services = [
 export default function HomeServices() {
   return (
     <section className=" py-20 bg-gray-100 ">
-      
-
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Text */}
         <div className="text-center mb-14">
@@ -117,7 +115,7 @@ export default function HomeServices() {
                   />
 
                   {/* Icon badge */}
-                  <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-[#0f3d2e] flex items-center justify-center shadow-md">
+                  <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-green-600 flex items-center justify-center shadow-md">
                     <Icon className="w-5 h-5 text-white" />
                   </div>
                 </div>
@@ -134,7 +132,7 @@ export default function HomeServices() {
 
                   <Link
                     href="/services"
-                    className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-[#0f3d2e] hover:text-[#16A34A] transition-colors"
+                    className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-green-600 hover:text-green-700 transition-colors"
                   >
                     Learn More <span>→</span>
                   </Link>
