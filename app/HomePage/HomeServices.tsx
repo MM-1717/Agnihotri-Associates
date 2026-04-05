@@ -72,38 +72,25 @@ const services = [
 
 export default function HomeServices() {
   return (
-    <section className="relative py-20 overflow-hidden ">
-      {/* Background Image */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/services/services-bg.jpg"
-          alt="Services background"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-
-        {/* Light overlay so it looks premium and readable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/60" />
-      </div>
+    <section className=" py-20 bg-gray-100 ">
+      
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Text */}
         <div className="text-center mb-14">
           {/* Pill */}
-          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/30 text-xs tracking-widest uppercase text-white bg-white/10 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-300 text-xs tracking-widest uppercase text-gray-800 bg-white">
             <span className="w-2 h-2 rounded-full bg-[#16A34A] inline-block" />
             Our Services
           </div>
 
           {/* Title */}
-          <p className="text-4xl md:text-6xl font-extrabold mt-4 anim-line anim-delay-3 text-white">
+          <p className="text-4xl md:text-6xl font-extrabold mt-4 text-gray-900">
             What We Offer
           </p>
 
           {/* Subtitle */}
-          <p className="mt-5 max-w-3xl mx-auto text-gray-100 text-lg leading-relaxed">
+          <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-lg leading-relaxed">
             Professional accounting, audit, taxation, and compliance services
             delivered with accuracy and trust.
           </p>

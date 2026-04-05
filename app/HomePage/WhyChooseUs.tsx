@@ -32,7 +32,7 @@ const values = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-gray-100">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">
