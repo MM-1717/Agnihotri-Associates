@@ -32,7 +32,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, open]);
 
-  // ✅ Clean Nav Links
+  // Clean Nav Links
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Team", path: "/team" },

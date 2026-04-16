@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 
 export default function Krilekha() {
@@ -17,17 +16,17 @@ export default function Krilekha() {
 
           {/* Pill */}
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-300 text-xs tracking-widest uppercase text-gray-800 bg-black/5 backdrop-blur">
-            <span className="w-2 h-2 rounded-full bg-green-600 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-green-600" />
             Krilekha • AI Powered
           </div>
 
           {/* Heading */}
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            Krilekha - File Your ITR in Minutes, Not Hours
+            File Your ITR in Minutes - Powered by Krilekha
           </h2>
 
           {/* Description */}
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-lg leading-relaxed">
             Krilekha is your AI-powered tax assistant built for speed, accuracy,
             and compliance. Automate your ITR filing and eliminate manual complexity.
           </p>
@@ -47,7 +46,7 @@ export default function Krilekha() {
           </div>
 
           {/* Stats */}
-          <div className="flex gap-10 pt-2">
+          <div className="flex gap-10 pt-4">
             <div>
               <p className="text-2xl font-bold text-gray-900">90%</p>
               <p className="text-sm text-gray-500">Time Saved</p>
@@ -63,20 +62,20 @@ export default function Krilekha() {
           </div>
 
           {/* CTA */}
-          <div className="flex gap-4 pt-4">
-            <Link href="/krilekha">
-              <button className="bg-green-600 text-white px-7 py-3 rounded-xl font-medium hover:bg-green-700 transition shadow-lg">
-                Start Filing Now
-              </button>
-            </Link>
-
-            <button className="px-7 py-3 rounded-xl font-medium border border-gray-300 hover:bg-gray-100 transition text-black">
-              View Demo
-            </button>
+          <div className="pt-6">
+            <a
+              href="https://krilekha.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 text-white px-7 py-3 rounded-xl font-medium hover:bg-green-700 transition shadow-lg inline-block"
+            >
+              Start Filing on Krilekha ↗
+            </a>
           </div>
+
         </div>
 
-        {/* RIGHT (REALISTIC UI) */}
+        {/* RIGHT */}
         <div className="relative">
 
           {/* Main Card */}
@@ -112,16 +111,10 @@ export default function Krilekha() {
               </div>
             </div>
 
-            {/* CTA */}
+            {/* Button */}
             <button className="w-full bg-green-600 text-white py-2.5 rounded-lg font-medium hover:bg-green-700 transition">
               Download ITR
             </button>
-          </div>
-
-          {/* Floating Card */}
-          <div className="absolute -bottom-6 -left-6 bg-white shadow-xl border rounded-xl p-4">
-            <p className="text-sm font-semibold text-gray-800">ITR Filed</p>
-            <p className="text-green-600 font-bold text-lg">₹2.4L Saved</p>
           </div>
 
         </div>
