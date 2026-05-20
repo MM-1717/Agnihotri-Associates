@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { uploadImage } from "../../../../lib/uploadImage";
+import { uploadImage } from "../../../../../lib/uploadImage";
 
 export default function EditServicePage() {
   const { id } = useParams();
