@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../../../lib/supabase";
 import toast from "react-hot-toast";
 
 type ContactForm = {
@@ -15,7 +14,7 @@ type ContactForm = {
 
 export default function AdminContact() {
   const [form, setForm] = useState<ContactForm>({
-    id: "", // ✅ MUST HAVE
+    id: "",
     phone: "",
     email: "",
     address: "",
@@ -25,37 +24,27 @@ export default function AdminContact() {
 
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Fetch contact data
   const fetchData = async (): Promise<void> => {
     try {
-      const { data, error } = await supabase
-        .from("contact_info")
-        .select("*")
-        .limit(1);
+      const res = await fetch("/api/admin/contact", {
+        credentials: "include",
+      });
+      const data = (await res.json()) as Partial<ContactForm> & {
+        msg?: string;
+      };
 
-      console.log("FETCH DATA:", data);
-      console.log("FETCH ERROR:", error);
-
-      if (error) {
-        toast.error(error.message);
+      if (!res.ok) {
+        toast.error(data.msg || "Failed to load contact info");
         return;
       }
 
-      if (!data || data.length === 0) {
-        toast.error("No contact data found");
-        return;
-      }
-
-      const row = data[0];
-
-      // ✅ SET ID PROPERLY
       setForm({
-        id: row.id,
-        phone: row.phone || "",
-        email: row.email || "",
-        address: row.address || "",
-        office_hours: row.office_hours || "",
-        map_url: row.map_url || "",
+        id: data.id || "",
+        phone: data.phone || "",
+        email: data.email || "",
+        address: data.address || "",
+        office_hours: data.office_hours || "",
+        map_url: data.map_url || "",
       });
     } catch {
       toast.error("Failed to load contact info");
@@ -66,51 +55,35 @@ export default function AdminContact() {
     void fetchData();
   }, []);
 
-  // 🔥 Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 🔥 FINAL UPDATE (CORRECT)
   const handleUpdate = async () => {
-    if (!form.id) {
-      toast.error("Missing ID");
-      return;
-    }
-
     try {
       setLoading(true);
 
-      const { data, error } = await supabase
-        .from("contact_info")
-        .update({
+      const res = await fetch("/api/admin/contact", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
           phone: form.phone,
           email: form.email,
           address: form.address,
           office_hours: form.office_hours,
           map_url: form.map_url,
-        })
-        .eq("id", form.id) // ✅ REQUIRED (fixes WHERE error)
-        .select();
+        }),
+      });
+      const data = (await res.json()) as { msg?: string };
 
-      console.log("UPDATE RESPONSE:", data);
-      console.log("UPDATE ERROR:", error);
-
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
-
-      if (!data || data.length === 0) {
-        toast.error("Update failed (row not matched)");
+      if (!res.ok) {
+        toast.error(data.msg || "Update failed");
         return;
       }
 
       toast.success("Contact updated successfully");
-
-      // 🔄 Refresh UI
       void fetchData();
-
     } catch {
       toast.error("Server error");
     } finally {
