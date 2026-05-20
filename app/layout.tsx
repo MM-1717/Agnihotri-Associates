@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 import { Poppins, Montserrat } from "next/font/google";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import WhatsAppFloat from "./Components/WhatsAppFloat";
-import ScrollToTop from "./Components/ScrollToTop";
+import LayoutWrapper from "./LayoutWrapper";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -32,11 +30,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       <body className="antialiased">
-        <Navbar />
-        {children}
-        <WhatsAppFloat />
-        <Footer />
-        <ScrollToTop />
+        <LayoutWrapper>{children}</LayoutWrapper>
+        <Toaster position="top-right" />
       </body>
     </html>
   );

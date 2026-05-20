@@ -3,8 +3,11 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Phone, Mail, Video, CheckCircle2, XCircle, X } from "lucide-react";
+import { supabase } from "../lib/supabase";
 
 export default function ContactPage() {
+  const [contact, setContact] = useState<any>(null);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -25,6 +28,16 @@ export default function ContactPage() {
     type: "success",
     message: "",
   });
+
+  useEffect(() => {
+    const fetchContact = async () => {
+      const { data } = await supabase.from("contact_info").select("*").single();
+
+      setContact(data);
+    };
+
+    fetchContact();
+  }, []);
 
   // ✅ Auto hide toast after 4 seconds
   useEffect(() => {
@@ -52,7 +65,7 @@ export default function ContactPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -185,7 +198,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ================= FORM + RIGHT BOX SECTION ================= */}
+      {/* ================= FORM + LEFT BOX SECTION ================= */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
@@ -310,7 +323,7 @@ export default function ContactPage() {
             </div>
 
             {/* ================= RIGHT: GET IN TOUCH BOX ================= */}
-            <div className="rounded-2xl border border-gray-200 shadow-md overflow-hidden bg[#f0e5d3] text-black">
+            <div className="rounded-2xl border border-gray-200 shadow-md overflow-hidden bg-white text-black">
               <div className="p-8 md:p-10">
                 <h3 className="text-3xl font-extrabold">Get In Touch</h3>
                 <p className="mt-3 text-gray-600 leading-relaxed">
@@ -326,10 +339,10 @@ export default function ContactPage() {
                     <div>
                       <p className="font-bold text-lg">Call Us</p>
                       <p className="mt-1 text-gray-600">
-                        +91 98705 47500 / 70453 37500
+                        {contact?.phone || "Loading..."}
                       </p>
                       <p className="mt-2 text-md text-gray-600">
-                        Mon – Fri : 9:30 AM – 06:30 PM
+                        {contact?.office_hours}
                       </p>
                       <p className="text-sm text-gray-600">
                         Available for immediate queries
@@ -345,7 +358,7 @@ export default function ContactPage() {
                     <div>
                       <p className="font-bold text-lg">Email Us</p>
                       <p className="mt-1 text-gray-600 break-all">
-                        agnihotriandassociates@gmail.com
+                        {contact?.email}
                       </p>
                       <p className="mt-2 text-sm text-gray-600">
                         Response within 24 hours

@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
-const clienteleIndustries = [
+/* ========= OLD STATIC DATA (FOR SEEDING) ========= */
+/* const clienteleIndustries = [
   {
     title: "Airways",
     image: "/clientele/airways.jpg",
@@ -108,9 +111,21 @@ const clienteleIndustries = [
     image: "/clientele/co-op-societies.jpg",
     desc: "Housing and co-operative societies.",
   },
-];
+]; */
 
 export default function ClientelePage() {
+  const [data, setData] = useState<any[]>([]);
+
+  /* ========= FETCH DATA ========= */
+  const fetchData = async () => {
+    const { data } = await supabase.from("clientele").select("*");
+    setData(data || []);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <section className="bg-white">
       {/* ========== HERO ========== */}
@@ -128,16 +143,16 @@ export default function ClientelePage() {
 
         <div className="max-w-7xl mx-auto px-6 pt-12 md:pt-20">
           <div className="max-w-3xl text-left">
-            <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-500 text-xs tracking-widest uppercase text-white-800 bg-black/5 backdrop-blur">
+            <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-500 text-xs tracking-widest uppercase text-white bg-black/5 backdrop-blur">
             <span className="w-2 h-2 rounded-full bg-[#16A34A] inline-block" />
             Clientele
           </div>
 
-            <h1 className="mt-6 text-4xl md:text-6xl font-extrabold leading-tight anim-line anim-delay-1">
+            <h1 className="mt-6 text-4xl md:text-6xl font-extrabold anim-line anim-delay-1">
               Our Clientele
             </h1>
 
-            <p className="mt-4 text-white/90 text-lg leading-relaxed max-w-2xl anim-line anim-delay-1.3">
+            <p className="mt-4 text-white/90 text-lg max-w-2xl anim-line anim-delay-1.3">
               Serving clients across diverse industries with reliable support
               and long-term trust.
             </p>
@@ -148,7 +163,7 @@ export default function ClientelePage() {
       {/* ========== CONTENT ========== */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Heading */}
+          {/* HEADING */}
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-300 text-xs tracking-widest uppercase text-gray-800 bg-black/5 backdrop-blur">
               <span className="w-2 h-2 rounded-full bg-[#16A34A] inline-block" />
@@ -167,42 +182,31 @@ export default function ClientelePage() {
             </p>
           </div>
 
-          {/* ✅ 3×3 grid */}
+          {/* GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {clienteleIndustries.map((item, index) => (
+            {data.map((item) => (
               <div
-                key={index}
-                className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
+                key={item.id}
+                className="group border rounded-2xl shadow-sm hover:shadow-xl transition-all overflow-hidden"
               >
-                {/* ✅ Image area bigger & fitted */}
-                <div className="relative w-full h-85 overflow-hidden">
+                <div className="relative w-full h-85">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                    className="object-cover group-hover:scale-110 transition"
                   />
                 </div>
 
-                {/* Content */}
                 <div className="p-7 text-center">
-                  <h3 className="text-base md:text-lg font-bold text-[#0A1A3B]">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                    {item.desc}
+                  <h3 className="font-bold text-black">{item.title}</h3>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {item.description}
                   </p>
                 </div>
               </div>
             ))}
           </div>
-
-          {/* Closing */}
-          <p className="mt-16 text-center text-gray-700 text-lg">
-            We value every client relationship and remain committed to accuracy,
-            confidentiality, and timely delivery.
-          </p>
         </div>
       </section>
     </section>
