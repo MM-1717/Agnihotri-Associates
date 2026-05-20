@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function AdminDashboard() {
-  const router = useRouter();
   const loading = false;
 
   const cards = [
@@ -32,15 +30,6 @@ export default function AdminDashboard() {
 
   // ✅ Middleware handles auth now
   // 🚪 Logout function
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-
-    router.push("/admin/login");
-  };
-
   // ⏳ Loading
   if (loading) {
     return <div className="text-center mt-10">Checking access...</div>;
@@ -58,12 +47,6 @@ export default function AdminDashboard() {
             Welcome to Admin Panel. Manage your website content here.
           </p>
         </div>
-        <button
-          onClick={handleLogout}
-          className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600"
-        >
-          Logout
-        </button>
       </div>
 
       {/* Cards */}
