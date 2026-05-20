@@ -3,6 +3,13 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+type Service = {
+  id?: string;
+  title: string;
+  points?: string[];
+  image?: string;
+};
+
 /* ✅ Reveal Animation Component (UNCHANGED) */
 function Reveal({
   children,
@@ -58,7 +65,7 @@ function Reveal({
 
 export default function ServicesPage() {
   // 🔥 NEW: dynamic services state
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
 
   // 🔥 NEW: fetch from backend
   useEffect(() => {
@@ -68,7 +75,7 @@ export default function ServicesPage() {
           cache: "no-store", // 🔥 IMPORTANT (no caching)
         });
 
-        const data = await res.json();
+        const data = (await res.json()) as Service[];
 
         setServices(data || []);
       } catch (err) {

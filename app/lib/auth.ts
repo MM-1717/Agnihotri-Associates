@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
+type AdminTokenPayload = jwt.JwtPayload & {
+  role?: string;
+};
+
 export async function verifyToken() {
   const cookieStore = await cookies(); // ✅ MUST be awaited
 
@@ -14,7 +18,7 @@ export async function verifyToken() {
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET as string
-    ) as any;
+    ) as AdminTokenPayload;
 
     if (decoded.role !== "admin") {
       throw new Error("Not authorized");

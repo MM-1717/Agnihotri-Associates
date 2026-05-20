@@ -41,7 +41,7 @@ export async function PUT(
 ) {
   try {
     // 🔒 PROTECT API
-    verifyToken();
+    await verifyToken();
 
     const { id } = await context.params;
     const body = await req.json();
@@ -77,7 +77,7 @@ export async function DELETE(
 ) {
   try {
     // 🔒 PROTECT API
-    verifyToken();
+    await verifyToken();
 
     const { id } = await context.params;
 

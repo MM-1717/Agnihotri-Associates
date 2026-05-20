@@ -4,25 +4,36 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../../lib/supabase";
 import toast from "react-hot-toast";
 
+type ClienteleItem = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
 export default function ClienteleAdmin() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<ClienteleItem[]>([]);
 
   /* ================= FETCH ================= */
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     const { data } = await supabase.from("clientele").select("*");
     setData(data || []);
   };
 
   useEffect(() => {
-    fetchData();
+    const timer = window.setTimeout(() => {
+      void fetchData();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   /* ================= IMAGE PREVIEW ================= */
-  const handleFileChange = (e: any) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
     if (selected) {
       setFile(selected);
@@ -132,6 +143,7 @@ export default function ClienteleAdmin() {
             {preview && (
               <img
                 src={preview}
+                alt="Selected industry preview"
                 className="w-full h-40 object-cover rounded border mt-4"
               />
             )}
@@ -154,6 +166,7 @@ export default function ClienteleAdmin() {
             >
               <img
                 src={item.image}
+                alt={item.title}
                 className="w-full h-32 object-cover rounded mb-3"
               />
 

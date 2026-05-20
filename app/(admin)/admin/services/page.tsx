@@ -4,8 +4,15 @@ import { useEffect, useState } from "react";
 import { uploadImage } from "../../../lib/uploadImage";
 import toast from "react-hot-toast";
 
+type Service = {
+  id: string;
+  title: string;
+  points: string[];
+  image?: string;
+};
+
 export default function ServicesCMS() {
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -18,14 +25,18 @@ export default function ServicesCMS() {
   const [file, setFile] = useState<File | null>(null);
 
   // 🔹 Fetch services (public)
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     const res = await fetch("/api/services");
-    const data = await res.json();
+    const data = (await res.json()) as Service[];
     setServices(data || []);
   };
 
   useEffect(() => {
-    fetchData();
+    const timer = window.setTimeout(() => {
+      void fetchData();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   // 🔹 Handle points
@@ -96,7 +107,7 @@ export default function ServicesCMS() {
       }
 
       resetForm();
-      fetchData();
+      void fetchData();
 
     } catch (err) {
       console.error(err);
@@ -107,7 +118,7 @@ export default function ServicesCMS() {
   };
 
   // 🔹 Edit
-  const handleEdit = (service: any) => {
+  const handleEdit = (service: Service) => {
     setForm({
       title: service.title || "",
       points: service.points || [""],
@@ -129,7 +140,7 @@ export default function ServicesCMS() {
 
     if (res.ok) {
       toast.success("Service deleted successfully");
-      fetchData();
+      void fetchData();
     } else {
       toast.error("Delete failed");
     }
@@ -268,13 +279,14 @@ export default function ServicesCMS() {
 
       {/* ================= CARDS ================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {services.map((s: any) => (
+        {services.map((s) => (
           <div
             key={s.id}
             className="bg-white rounded-xl shadow overflow-hidden"
           >
             <img
               src={s.image || "/services/default.jpg"}
+              alt={s.title}
               className="w-full h-40 object-cover"
             />
 

@@ -4,8 +4,17 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import toast from "react-hot-toast";
 
+type ContactForm = {
+  id: string;
+  phone: string;
+  email: string;
+  address: string;
+  office_hours: string;
+  map_url: string;
+};
+
 export default function AdminContact() {
-  const [form, setForm] = useState<any>({
+  const [form, setForm] = useState<ContactForm>({
     id: "", // ✅ MUST HAVE
     phone: "",
     email: "",
@@ -17,7 +26,7 @@ export default function AdminContact() {
   const [loading, setLoading] = useState(false);
 
   // 🔥 Fetch contact data
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
       const { data, error } = await supabase
         .from("contact_info")
@@ -48,17 +57,17 @@ export default function AdminContact() {
         office_hours: row.office_hours || "",
         map_url: row.map_url || "",
       });
-    } catch (err) {
+    } catch {
       toast.error("Failed to load contact info");
     }
   };
 
   useEffect(() => {
-    fetchData();
+    void fetchData();
   }, []);
 
   // 🔥 Handle input change
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -100,9 +109,9 @@ export default function AdminContact() {
       toast.success("Contact updated successfully");
 
       // 🔄 Refresh UI
-      fetchData();
+      void fetchData();
 
-    } catch (err) {
+    } catch {
       toast.error("Server error");
     } finally {
       setLoading(false);

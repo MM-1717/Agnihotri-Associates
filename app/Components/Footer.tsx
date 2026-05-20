@@ -5,16 +5,23 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+type FooterData = {
+  address: string;
+  phone: string;
+  email: string;
+  office_hours: string;
+};
+
 export default function Footer() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<FooterData | null>(null);
 
   useEffect(() => {
     const fetchFooter = async () => {
       try {
         const res = await fetch("/api/footer");
-        const result = await res.json();
+        const result = (await res.json()) as FooterData;
         setData(result);
-      } catch (err) {
+      } catch {
         console.error("Failed to load footer");
       }
     };

@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { verifyToken } from "../../lib/auth";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    verifyToken(req);
+    await verifyToken();
 
     return NextResponse.json({ msg: "Access granted" });
 

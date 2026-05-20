@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const loading = false;
 
   const cards = [
     {
@@ -32,10 +31,6 @@ export default function AdminDashboard() {
   ];
 
   // ✅ Middleware handles auth now
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
   // 🚪 Logout function
   const handleLogout = async () => {
     await fetch("/api/auth/logout", {
@@ -63,6 +58,12 @@ export default function AdminDashboard() {
             Welcome to Admin Panel. Manage your website content here.
           </p>
         </div>
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600"
+        >
+          Logout
+        </button>
       </div>
 
       {/* Cards */}

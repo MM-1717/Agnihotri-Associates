@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
 import { verifyToken } from "../../lib/auth";
 
+function getErrorMessage(err: unknown) {
+  return err instanceof Error ? err.message : "Server error";
+}
+
 // ================= GET =================
 export async function GET() {
   try {
@@ -20,7 +24,7 @@ export async function GET() {
 
     return NextResponse.json(data);
 
-  } catch (err: any) {
+  } catch (err) {
     console.error("GET SERVER ERROR:", err);
     return NextResponse.json(
       { error: "Server error" },
@@ -67,14 +71,15 @@ export async function POST(req: Request) {
 
     return NextResponse.json(data);
 
-  } catch (err: any) {
+  } catch (err) {
     console.error("POST ERROR:", err);
+    const message = getErrorMessage(err);
 
     // differentiate auth vs server
     if (
-      err.message === "No token" ||
-      err.message === "Unauthorized" ||
-      err.message === "Not authorized"
+      message === "No token" ||
+      message === "Unauthorized" ||
+      message === "Not authorized"
     ) {
       return NextResponse.json(
         { error: "Unauthorized" },
@@ -83,7 +88,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json(
-      { error: err.message || "Server error" },
+      { error: message },
       { status: 500 }
     );
   }

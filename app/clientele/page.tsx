@@ -4,6 +4,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
+type ClienteleItem = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
 /* ========= OLD STATIC DATA (FOR SEEDING) ========= */
 /* const clienteleIndustries = [
   {
@@ -114,16 +121,20 @@ import { supabase } from "../lib/supabase";
 ]; */
 
 export default function ClientelePage() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<ClienteleItem[]>([]);
 
   /* ========= FETCH DATA ========= */
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     const { data } = await supabase.from("clientele").select("*");
     setData(data || []);
   };
 
   useEffect(() => {
-    fetchData();
+    const timer = window.setTimeout(() => {
+      void fetchData();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (

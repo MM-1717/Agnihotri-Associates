@@ -5,8 +5,14 @@ import { useState, useEffect } from "react";
 import { Phone, Mail, Video, CheckCircle2, XCircle, X } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
+type ContactInfo = {
+  phone?: string;
+  email?: string;
+  office_hours?: string;
+};
+
 export default function ContactPage() {
-  const [contact, setContact] = useState<any>(null);
+  const [contact, setContact] = useState<ContactInfo | null>(null);
 
   const [form, setForm] = useState({
     name: "",

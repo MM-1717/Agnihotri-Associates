@@ -38,7 +38,7 @@ export async function GET() {
 export async function PUT(req: Request) {
   try {
     // 🔒 Auth
-    verifyToken(req);
+    await verifyToken();
 
     const body = await req.json();
     const { address, phone, email, office_hours } = body;
